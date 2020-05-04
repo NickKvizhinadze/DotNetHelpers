@@ -1,0 +1,61 @@
+﻿@model DotNetHelpers.Models.PagedList<Product>
+@{
+    ViewData["Title"] = "Home Page";
+    var paging = Model.Paging;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+
+<div class="grid-container">
+    <div class="grid-header">
+        <a asp-action="Create" class="btn btn-flat btn-primary btn-add"><i class="fa fa-plus"></i> Add</a>
+    </div>
+    <div id="splitter">
+        <div id="grid">
+
+            <div id="listView">
+                <table class="table table-striped">
+                    <thead>
+                        <tr id="listHeaders">
+                            <grid-header sorting="@Model.Sorting" property-name="Id">#</grid-header>
+                            <grid-header sorting="@Model.Sorting" property-name="Caption">Caption</grid-header>
+                            <grid-header sorting="@Model.Sorting" property-name="Product.Price">Price</grid-header>
+                            <grid-header sorting="@Model.Sorting" property-name="Product.Quantity">Quantity</grid-header>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td scope="row">@item.Id</td>
+                                <td>@item.Caption</td>
+                                <td>@item.Price</td>
+                                <td>@item.Quantity</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <br />
+
+                @if (Model.Paging.PageCount > 1)
+                {
+                    <div class="row" id="paging">
+                        <div class="col-lg-11 col-md-10 col-sm-8">
+                            <nav aria-label="Page navigation example">
+                                <page-list current-page="@paging.CurrentPage" last-page="@paging.PageCount"></page-list>
+                            </nav>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
