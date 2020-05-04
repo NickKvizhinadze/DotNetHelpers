@@ -21,11 +21,11 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Kvizhinadze.DotNetHelpers
-          path: ./DotNetHelpers/bin/Release/DotNetHelpers.${{ github.event.release.tag_name }}.nupkg
+          path: ./DotNetHelpers/bin/Release/Kvizhinadze.DotNetHelpers.${{ github.event.release.tag_name }}.nupkg
       - name: Archive Nuget Package
         uses: actions/upload-artifact@v1
         with:
           name: Kvizhinadze.DotNetHelpers.MvcCore
-          path: ./DotNetHelpers.MvcCore/bin/Release/DotNetHelpers.MvcCore.${{ github.event.release.tag_name }}.nupkg
+          path: ./DotNetHelpers.MvcCore/bin/Release/Kvizhinadze.DotNetHelpers.MvcCore.${{ github.event.release.tag_name }}.nupkg
       - name: Publish Nuget Package
         run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.GithubApiKey }} --source https://api.nuget.org/v3/index.json --no-symbols true

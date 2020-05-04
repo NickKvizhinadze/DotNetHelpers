@@ -16,6 +16,7 @@
     <PackageProjectUrl>https://github.com/NickKvizhinadze/DotNetHelpers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/NickKvizhinadze/DotNetHelpers</RepositoryUrl>
     <PackageTags>asp dot net helpers extentions</PackageTags>
+    <PackageId>Kvizhinadze.DotNetHelpers</PackageId>
   </PropertyGroup>
   
   <ItemGroup>
