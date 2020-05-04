@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageProjectUrl>https://github.com/NickKvizhinadze/DotNetHelpers</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/NickKvizhinadze/DotNetHelpers</RepositoryUrl>
+    <PackageTags>asp dot net mvc helpers extentions</PackageTags>
+    <Authors>Nick Kvizhinadze</Authors>
+    <Company>Nick Kvizhinadze</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
