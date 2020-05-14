@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using DotNetHelpers.Enums;
+using System.Collections.Generic;
 
 namespace DotNetHelpers.Models
 {
+    /// <summary>
+    /// Result class
+    /// </summary>
     public class Result
     {
         #region Fields
@@ -11,10 +15,19 @@ namespace DotNetHelpers.Models
         #endregion
 
         #region Properties
-
+        /// <summary>
+        /// Indicates if method finished with success or fail
+        /// </summary>
         public bool Succeeded => _errors == null || _errors.Count == 0;
+        /// <summary>
+        /// Errors
+        /// </summary>
         public IReadOnlyList<KeyValuePair<string, string>> Errors => _errors;
-        public bool IsException { get; private set; }
+
+        /// <summary>
+        /// Error status
+        /// </summary>
+        public ErrorStatus ErrorStatus { get; private set; }
 
         #endregion
 
@@ -30,9 +43,9 @@ namespace DotNetHelpers.Models
         /// Add new error
         /// </summary>
         /// <param name="errorMessage">Error message</param>
-        /// <param name="isException">True if exception is occurred</param>
-        public void AddError(string errorMessage, bool isException) =>
-            AddError("Error", errorMessage, isException);
+        /// <param name="errorStatus">Error status</param>
+        public void AddError(string errorMessage, ErrorStatus errorStatus) =>
+            AddError("Error", errorMessage, errorStatus);
 
         /// <summary>
         /// Add new error
@@ -47,26 +60,26 @@ namespace DotNetHelpers.Models
         /// </summary>
         /// <param name="key">Key for error</param>
         /// <param name="errorMessage">Error message</param>
-        /// <param name="isException">True if exception is occurred</param>
-        public void AddError(string key, string errorMessage, bool isException) =>
-            AddError(new KeyValuePair<string, string>(key, errorMessage), isException);
+        /// <param name="errorStatus">Error status</param>
+        public void AddError(string key, string errorMessage, ErrorStatus errorStatus) =>
+            AddError(new KeyValuePair<string, string>(key, errorMessage), errorStatus);
 
         /// <summary>
         /// Add new error
         /// </summary>
         /// <param name="error">Key and message for error</param>
         public void AddError(KeyValuePair<string, string> error) =>
-            AddError(error, false);
+            AddError(error);
 
         /// <summary>
         /// Add new errors
         /// </summary>
         /// <param name="error">Key and message for error</param>
-        /// <param name="isException">True if exception is occurred</param>
-        public void AddError(KeyValuePair<string, string> error, bool isException = false)
+        /// <param name="errorStatus">Error status</param>
+        public void AddError(KeyValuePair<string, string> error, ErrorStatus errorStatus = ErrorStatus.Client)
         {
-            if (IsException != isException)
-                IsException = isException;
+            if (ErrorStatus != errorStatus)
+                ErrorStatus = errorStatus;
             if (_errors == null)
                 _errors = new List<KeyValuePair<string, string>>();
             _errors.Add(error);
@@ -131,7 +144,18 @@ namespace DotNetHelpers.Models
         public static Result Throw(string errorMessage)
         {
             var result = new Result();
-            result.AddError(errorMessage, true);
+            result.AddError(errorMessage, ErrorStatus.Server);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns result class instance with error when exception is occurred
+        /// </summary>
+        /// <returns></returns>
+        public static Result Unauthorized()
+        {
+            var result = new Result();
+            result.AddError("Unauthorized", ErrorStatus.UnAuthorized);
             return result;
         }
 
@@ -164,14 +188,33 @@ namespace DotNetHelpers.Models
         public static Result Throw<T>(string errorMessage)
         {
             var result = new Result<T>();
-            result.AddError(errorMessage, true);
+            result.AddError(errorMessage, ErrorStatus.Server);
+            return result;
+        }
+
+        /// <summary>
+        /// Returns result class instance with error when exception is occurred
+        /// </summary>
+        /// <typeparam name="T">Type of data property</typeparam>
+        /// <returns></returns>
+        public static Result Unauthorized<T>()
+        {
+            var result = new Result<T>();
+            result.AddError("Unauthorized", ErrorStatus.UnAuthorized);
             return result;
         }
         #endregion
     }
 
+    /// <summary>
+    /// Result class
+    /// </summary>
+    /// <typeparam name="T">Type of result data</typeparam>
     public class Result<T> : Result
     {
+        /// <summary>
+        /// Data to return from method
+        /// </summary>
         public T Data { get; set; }
     }
 }
