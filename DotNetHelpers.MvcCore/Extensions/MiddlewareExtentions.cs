@@ -11,9 +11,9 @@ namespace DotNetHelpers.MvcCore.Extensions
         {
             return builder.UseMiddleware<ExceptionHandlerMiddleware>();
         }
-        public static IApplicationBuilder UseCultureFromHeader(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseCultureFromHeader(this IApplicationBuilder builder, string defaultCulture)
         {
-            return builder.UseMiddleware<CultureMiddleware>();
+            return builder.UseMiddleware<CultureMiddleware>(defaultCulture);
         }
 
         #endregion
