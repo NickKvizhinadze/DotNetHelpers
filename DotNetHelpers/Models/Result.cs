@@ -162,9 +162,10 @@ namespace DotNetHelpers.Models
         /// <summary>
         /// Returns result class instance with success
         /// </summary>
+        /// <param name="data">Data</param>
         /// <typeparam name="T">Type of data property</typeparam>
         /// <returns></returns>
-        public static Result Success<T>() => new Result<T>();
+        public static Result<T> Success<T>(T data) => new Result<T>(data);
 
         /// <summary>
         /// Returns result class instance with error
@@ -172,7 +173,7 @@ namespace DotNetHelpers.Models
         /// <typeparam name="T">Type of data property</typeparam>
         /// <param name="errorMessage">Error message</param>
         /// <returns></returns>
-        public static Result Error<T>(string errorMessage)
+        public static Result<T> Error<T>(string errorMessage)
         {
             var result = new Result<T>();
             result.AddError(errorMessage);
@@ -185,7 +186,7 @@ namespace DotNetHelpers.Models
         /// <typeparam name="T">Type of data property</typeparam>
         /// <param name="errorMessage">Error message</param>
         /// <returns></returns>
-        public static Result Throw<T>(string errorMessage)
+        public static Result<T> Throw<T>(string errorMessage)
         {
             var result = new Result<T>();
             result.AddError(errorMessage, ErrorStatus.Server);
@@ -197,7 +198,7 @@ namespace DotNetHelpers.Models
         /// </summary>
         /// <typeparam name="T">Type of data property</typeparam>
         /// <returns></returns>
-        public static Result Unauthorized<T>()
+        public static Result<T> Unauthorized<T>()
         {
             var result = new Result<T>();
             result.AddError("Unauthorized", ErrorStatus.UnAuthorized);
@@ -212,6 +213,22 @@ namespace DotNetHelpers.Models
     /// <typeparam name="T">Type of result data</typeparam>
     public class Result<T> : Result
     {
+        #region Constructor
+        /// <summary>
+        /// Empty Constructor
+        /// </summary>
+        public Result()
+        {
+        }
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="data">Data</param>
+        public Result(T data)
+        {
+            Data = data;
+        }
+        #endregion
         /// <summary>
         /// Data to return from method
         /// </summary>
