@@ -25,10 +25,8 @@ namespace DotNetHelpers.MvcCore
 
             return NoContent();
         }
-        #endregion
 
-        #region Private Methods
-        private ActionResult ReturnErrorResult(Result result)
+        protected ActionResult ReturnErrorResult(Result result)
         {
             AddErrors(result.Errors);
             switch (result.ErrorStatus)
@@ -43,7 +41,9 @@ namespace DotNetHelpers.MvcCore
                     return CustomActionResult(HttpStatusCode.BadRequest);
             }
         }
+        #endregion
 
+        #region Private Methods
         private ActionResult CustomActionResult(HttpStatusCode statusCode)
         {
             switch (statusCode)
