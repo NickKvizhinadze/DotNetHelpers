@@ -24,6 +24,7 @@ namespace DotNetHelpers.Sample.Controllers
         {
             try
             {
+                var a = Result.Error("test");
                 var products = ProductsFactory.Products;
                 var totalCount = products.Count;
 
