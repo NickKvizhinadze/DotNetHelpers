@@ -9,6 +9,7 @@ namespace DotNetHelpers.MvcCore.TagHelpers
         #region Fields
         private int _startPage;
         private int _pageCount;
+        private bool _dotsEntered;
         #endregion
 
         #region Constructors
@@ -30,10 +31,10 @@ namespace DotNetHelpers.MvcCore.TagHelpers
             output.TagName = "ul";
             output.Attributes.Add("class", "pagination");
 
-            var first = CreateLiElement(1, "<i class=\"fas fa-fast-backward\"></i>", CurrentPage == 1, false, true);
-            var previous = CreateLiElement(CurrentPage - 1, "<i class=\"fas fa-step-backward\"></i>", CurrentPage == 1, false, true);
-            var next = CreateLiElement(CurrentPage + 1, "<i class=\"fas fa-step-forward\"></i>", CurrentPage == LastPage, false, true);
-            var last = CreateLiElement(LastPage, "<i class=\"fas fa-fast-forward\"></i>", CurrentPage == LastPage, false, true);
+            var first = CreateLiElement(1, "<i class=\"fas fa-fast-backward\"></i>", CurrentPage == 1, false);
+            var previous = CreateLiElement(CurrentPage - 1, "<i class=\"fas fa-step-backward\"></i>", CurrentPage == 1, false);
+            var next = CreateLiElement(CurrentPage + 1, "<i class=\"fas fa-step-forward\"></i>", CurrentPage == LastPage, false);
+            var last = CreateLiElement(LastPage, "<i class=\"fas fa-fast-forward\"></i>", CurrentPage == LastPage, false);
 
             output.Content.AppendHtml(first);
             output.Content.AppendHtml(previous);
@@ -42,15 +43,16 @@ namespace DotNetHelpers.MvcCore.TagHelpers
             {
                 if (i - _startPage > 5 && !(LastPage - i < 5))
                 {
-                    if (i - _startPage > 6)
+                    if (i - _startPage > 6 && !_dotsEntered)
                     {
-                        var li = CreateLiElement(0, "...", true, false, false);
+                        _dotsEntered = true;
+                        var li = CreateLiElement(0, "...", true, false);
                         output.Content.AppendHtml(li);
                     }
                 }
                 else
                 {
-                    var li = CreateLiElement(i, i.ToString(), false, CurrentPage == i, true);
+                    var li = CreateLiElement(i, i.ToString(), false, CurrentPage == i);
                     output.Content.AppendHtml(li);
                 }
             }
@@ -61,7 +63,7 @@ namespace DotNetHelpers.MvcCore.TagHelpers
         #endregion
 
         #region Private Methods
-        private TagBuilder CreateLiElement(int page, string anchoreText, bool isDisabled, bool isActive, bool useClassForAnchor)
+        private TagBuilder CreateLiElement(int page, string anchoreText, bool isDisabled, bool isActive)
         {
             var result = new TagBuilder("li");
             result.AddCssClass("page-item");
@@ -71,18 +73,17 @@ namespace DotNetHelpers.MvcCore.TagHelpers
             if (isActive)
                 result.AddCssClass("active");
 
-            var a = CreateAnchorElement(page, anchoreText, useClassForAnchor);
+            var a = CreateAnchorElement(page, anchoreText);
 
             result.InnerHtml.AppendHtml(a);
             return result;
         }
 
-        private TagBuilder CreateAnchorElement(int page, string text, bool useClass = true)
+        private TagBuilder CreateAnchorElement(int page, string text)
         {
             var a = new TagBuilder("a");
 
-            if (useClass)
-                a.AddCssClass("page-link");
+            a.AddCssClass("page-link");
 
             var url = BaseUrl + (BaseUrl.Contains("?") ? $"&" : "?") + $"page={page}";
             a.Attributes.Add("href", url);
