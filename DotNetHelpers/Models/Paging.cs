@@ -1,18 +1,38 @@
 ﻿namespace DotNetHelpers.Models
 {
+    /// <summary>
+    /// Paging Model
+    /// </summary>
     public class Paging
     {
         #region Constructor
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
         public Paging()
         {
+            CurrentPage = 1;
         }
 
-        public Paging(int page, int perPage)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page">Current page</param>
+        /// <param name="perPage">Items per page</param>
+        public Paging(int page, int perPage): this()
         {
             CurrentPage = page;
             PerPage = perPage;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page">Current page</param>
+        /// <param name="perPage">Items per page</param>
+        /// <param name="totalCount">Items total count</param>
+        /// <param name="pageCount">page count</param>
         public Paging(int page, int perPage, int totalCount, int pageCount) : this(page, perPage)
         {
             TotalCount = totalCount;
