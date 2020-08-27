@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using static DotNetHelpers.MvcCore.Extensions.AlertExtensions;
 using DotNetHelpers.MvcCore.Enums;
 using DotNetHelpers.MvcCore.Models;
+using System.Threading.Tasks;
 
 namespace DotNetHelpers.MvcCore.InternalHelpers
 {
@@ -27,6 +28,24 @@ namespace DotNetHelpers.MvcCore.InternalHelpers
         #region Methods
         public override void ExecuteResult(ActionContext context)
         {
+            GenerateAlertTempData(context);
+
+            InnerResult.ExecuteResult(context);
+        }
+
+        public override Task ExecuteResultAsync(ActionContext context)
+        {
+            GenerateAlertTempData(context);
+
+            return InnerResult.ExecuteResultAsync(context);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void GenerateAlertTempData(ActionContext context)
+        {
             ITempDataDictionaryFactory factory = context.HttpContext.RequestServices.GetService(typeof(ITempDataDictionaryFactory)) as TempDataDictionaryFactory;
             if (factory != null)
             {
@@ -38,8 +57,6 @@ namespace DotNetHelpers.MvcCore.InternalHelpers
                 else
                     tempData.Add(AlertsKey, JsonConvert.SerializeObject(alerts));
             }
-
-            InnerResult.ExecuteResult(context);
         }
 
         #endregion
