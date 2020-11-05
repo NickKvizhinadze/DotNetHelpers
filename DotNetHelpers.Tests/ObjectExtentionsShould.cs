@@ -11,7 +11,7 @@ namespace DotNetHelpers.Tests
         {
             string obj = null;
 
-            void action() => obj.ThrowIfNull();
+            void action() => obj.ThrowIfNull(nameof(obj));
 
             Assert.Throws<ArgumentNullException>(action);
         }
