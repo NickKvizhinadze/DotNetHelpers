@@ -13,7 +13,7 @@ namespace DotNetHelpers.MvcCore
         protected ActionResult<T> CustomResult<T>(Result<T> result)
         {
             if (!result.Succeeded)
-                return ReturnError(result);
+                return Error(result);
 
             return Ok(result.Data);
         }
@@ -21,13 +21,13 @@ namespace DotNetHelpers.MvcCore
         protected IActionResult CustomResult(Result result)
         {
             if (!result.Succeeded)
-                return ReturnError(result);
+                return Error(result);
 
             return NoContent();
         }
 
         //TODO: rename to ErrorResult
-        protected ActionResult ReturnError(Result result)
+        protected ActionResult Error(Result result)
         {
             AddErrors(result.Errors);
             switch (result.ErrorStatus)

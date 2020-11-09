@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetHelpers.MvcCore", "Do
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetHelpers.Sample", "DotNetHelpers.Sample\DotNetHelpers.Sample.csproj", "{77040DD9-77CD-4218-9C27-FB133CE52F1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHelpers.Tests", "DotNetHelpers.Tests\DotNetHelpers.Tests.csproj", "{9AF5DEB2-92EC-4761-BFEF-291300B6F581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetHelpers.Tests", "DotNetHelpers.Tests\DotNetHelpers.Tests.csproj", "{9AF5DEB2-92EC-4761-BFEF-291300B6F581}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHelpers.Logger", "DotNetHelpers.Logger\DotNetHelpers.Logger.csproj", "{64AF43F5-ACF1-4C27-AB5E-E1A0E616C0A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9AF5DEB2-92EC-4761-BFEF-291300B6F581}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AF5DEB2-92EC-4761-BFEF-291300B6F581}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AF5DEB2-92EC-4761-BFEF-291300B6F581}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64AF43F5-ACF1-4C27-AB5E-E1A0E616C0A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64AF43F5-ACF1-4C27-AB5E-E1A0E616C0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64AF43F5-ACF1-4C27-AB5E-E1A0E616C0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64AF43F5-ACF1-4C27-AB5E-E1A0E616C0A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

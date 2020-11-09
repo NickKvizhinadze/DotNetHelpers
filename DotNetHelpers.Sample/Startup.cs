@@ -32,6 +32,10 @@ namespace DotNetHelpers.Sample
         {
             DotNetHelpers.MvcCore.Config.Init(25);
 
+            new DotNetHelpers.Logger.LoggerConfiguration()
+                .SetConnectionString("Server=KVIZHINADZE;Database=MeetingRooms;Trusted_Connection=True;")
+                .Build();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
