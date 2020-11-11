@@ -8,14 +8,15 @@ using DotNetHelpers.Models;
 using DotNetHelpers.Sample.Enums;
 using DotNetHelpers.Sample.Models;
 using DotNetHelpers.Sample.Factories;
+using DotNetHelpers.Logger;
 
 namespace DotNetHelpers.Sample.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogService _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogService logger)
         {
             _logger = logger;
         }
@@ -24,6 +25,7 @@ namespace DotNetHelpers.Sample.Controllers
         {
             try
             {
+                throw new Exception("test");
                 var a = Result.Error("test");
                 var products = ProductsFactory.Products;
                 var totalCount = products.Count;
@@ -39,9 +41,10 @@ namespace DotNetHelpers.Sample.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error type: {ErrorType.Internal.GetDisplayName()}, Error message: {ex.Message}");
-                throw;
+                _logger.LogError(null, $"{nameof(HomeController)} => {nameof(Index)}", $"Error type: {ErrorType.Internal.GetDisplayName()}", ex);
+
             }
+            return null;
         }
 
         public IActionResult Privacy()

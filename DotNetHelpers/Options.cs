@@ -1,6 +1,6 @@
-﻿namespace DotNetHelpers.Logger
+﻿namespace DotNetHelpers
 {
-    internal static class Config
+    internal static class Options
     {
         #region Properties
         internal static string ConnectionString { get; private set; }
@@ -9,7 +9,7 @@
         #endregion
 
         #region Methods
-        internal static void Init(string connectionString, string schema, string table)
+        internal static void SetLoggerOptions(string connectionString, string schema, string table)
         {
             ConnectionString = connectionString;
             Schema = schema;
