@@ -25,7 +25,6 @@ namespace DotNetHelpers.Sample.Controllers
         {
             try
             {
-                throw new Exception("test");
                 var a = Result.Error("test");
                 var products = ProductsFactory.Products;
                 var totalCount = products.Count;
@@ -42,7 +41,6 @@ namespace DotNetHelpers.Sample.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(null, $"{nameof(HomeController)} => {nameof(Index)}", $"Error type: {ErrorType.Internal.GetDisplayName()}", ex);
-
             }
             return null;
         }
