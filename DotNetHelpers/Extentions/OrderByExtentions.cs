@@ -4,6 +4,9 @@ using System.Linq.Expressions;
 
 namespace DotNetHelpers.Extentions
 {
+    /// <summary>
+    /// Order by extention
+    /// </summary>
     public static class OrderByExtentions
     {
         /// <summary>
