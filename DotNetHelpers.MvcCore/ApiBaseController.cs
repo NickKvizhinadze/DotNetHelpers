@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Collections.Generic;
+using DotNetHelpers.Enums;
 using Microsoft.AspNetCore.Mvc;
 using DotNetHelpers.Models;
 using DotNetHelpers.MvcCore.Extensions;
@@ -12,35 +13,28 @@ namespace DotNetHelpers.MvcCore
         #region Protected Methods
         protected ActionResult<T> CustomResult<T>(Result<T> result)
         {
-            if (!result.Succeeded)
-                return Error(result);
-
-            return Ok(result.Data);
+            return result.Succeeded 
+                ? Ok(result.Data) 
+                : ErrorResult(result);
         }
 
         protected IActionResult CustomResult(Result result)
         {
-            if (!result.Succeeded)
-                return Error(result);
-
-            return NoContent();
+            return result.Succeeded
+                ? NoContent()
+                : ErrorResult(result);
         }
-
-        //TODO: rename to ErrorResult
-        protected ActionResult Error(Result result)
+        
+        protected ActionResult ErrorResult(Result result)
         {
             AddErrors(result.Errors);
-            switch (result.ErrorStatus)
+            return result.Code switch
             {
-                case DotNetHelpers.Enums.ErrorStatus.Server:
-                    return CustomActionResult(HttpStatusCode.InternalServerError);
-                case DotNetHelpers.Enums.ErrorStatus.UnAuthorized:
-                    return CustomActionResult(HttpStatusCode.Unauthorized);
-                case DotNetHelpers.Enums.ErrorStatus.AccessDenied:
-                    return CustomActionResult(HttpStatusCode.Forbidden);
-                default:
-                    return CustomActionResult(HttpStatusCode.BadRequest);
-            }
+                ResultCode.InternalError => CustomActionResult(HttpStatusCode.InternalServerError),
+                ResultCode.EntityNotFound => CustomActionResult(HttpStatusCode.NotFound),
+                ResultCode.Forbidden => CustomActionResult(HttpStatusCode.Forbidden),
+                _ => CustomActionResult(HttpStatusCode.BadRequest)
+            };
         }
         #endregion
 
@@ -56,7 +50,7 @@ namespace DotNetHelpers.MvcCore
             }
         }
 
-        protected void AddErrors(IEnumerable<KeyValuePair<string, string>> errors)
+        protected void AddErrors(IEnumerable<Error> errors)
         {
             foreach (var error in errors)
                 ModelState.AddError(error);

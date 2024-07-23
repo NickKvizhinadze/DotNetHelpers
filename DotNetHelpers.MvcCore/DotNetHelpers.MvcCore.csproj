@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <PackageProjectUrl>https://github.com/NickKvizhinadze/DotNetHelpers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/NickKvizhinadze/DotNetHelpers</RepositoryUrl>
     <PackageTags>asp dot net mvc helpers extentions</PackageTags>
@@ -14,7 +15,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
