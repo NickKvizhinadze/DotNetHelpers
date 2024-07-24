@@ -360,3 +360,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /DotNetHelpers/DotNetHelpers.xml
 /DotNetHelpers/DotNetHelpers.md
+
+/.idea/*
