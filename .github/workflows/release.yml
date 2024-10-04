@@ -11,19 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 3.1.101
+          dotnet-version: '8.x'
       - name: Create NuGet Package
         run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/NickKvizhinadze/DotNetHelpers/releases/tag/${{ github.event.release.tag_name }}"
         working-directory: ./
       - name: Archive Nuget Package
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: Kvizhinadze.DotNetHelpers
           path: ./DotNetHelpers/bin/Release/Kvizhinadze.DotNetHelpers.${{ github.event.release.tag_name }}.nupkg
       - name: Archive Nuget Package
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: Kvizhinadze.DotNetHelpers.MvcCore
           path: ./DotNetHelpers.MvcCore/bin/Release/Kvizhinadze.DotNetHelpers.MvcCore.${{ github.event.release.tag_name }}.nupkg
